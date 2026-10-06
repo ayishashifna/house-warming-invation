@@ -1,0 +1,562 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>House Warming Invitation</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Georgia, "Times New Roman", serif;
+            background:
+                radial-gradient(circle at 10% 10%, #dfeadf 0, transparent 30%),
+                radial-gradient(circle at 90% 90%, #eadfc8 0, transparent 30%),
+                #f5f2ea;
+            color: #35483b;
+            overflow-x: hidden;
+        }
+
+        /* Floating leaves */
+        .leaf {
+            position: fixed;
+            font-size: 28px;
+            opacity: 0.35;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .leaf1 {
+            top: 12%;
+            left: 7%;
+        }
+
+        .leaf2 {
+            top: 30%;
+            right: 8%;
+            animation-delay: 1s;
+        }
+
+        .leaf3 {
+            bottom: 20%;
+            left: 10%;
+            animation-delay: 2s;
+        }
+
+        .leaf4 {
+            bottom: 8%;
+            right: 12%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-18px) rotate(8deg);
+            }
+        }
+
+        /* Main container */
+        .page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 35px 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Invitation card */
+        .card {
+            width: 100%;
+            max-width: 700px;
+            padding: 55px 45px;
+            text-align: center;
+            background: rgba(255, 253, 247, 0.97);
+            border: 2px solid #c6aa6d;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(45, 65, 50, 0.20);
+
+            opacity: 0;
+            transform: translateY(40px);
+            animation: cardAppear 1.2s ease forwards;
+        }
+
+        @keyframes cardAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Inner border */
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 13px;
+            border: 1px solid #c6aa6d;
+            pointer-events: none;
+        }
+
+        /* Decorative corners */
+        .corner {
+            position: absolute;
+            font-size: 42px;
+            color: #41664e;
+            opacity: 0.8;
+        }
+
+        .top-left {
+            top: 20px;
+            left: 22px;
+        }
+
+        .top-right {
+            top: 20px;
+            right: 22px;
+            transform: scaleX(-1);
+        }
+
+        .bottom-left {
+            bottom: 20px;
+            left: 22px;
+            transform: rotate(180deg);
+        }
+
+        .bottom-right {
+            bottom: 20px;
+            right: 22px;
+            transform: rotate(180deg) scaleX(-1);
+        }
+
+        /* Bismillah */
+        .bismillah {
+            font-size: 28px;
+            color: #315c45;
+            margin-bottom: 18px;
+            direction: rtl;
+            animation: fadeIn 1.5s ease 0.4s both;
+        }
+
+        .intro {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #a18143;
+            animation: fadeIn 1.5s ease 0.6s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* House icon */
+        .house {
+            width: 105px;
+            height: 105px;
+            margin: 22px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: #edf3eb;
+            border: 1px solid #c6aa6d;
+            font-size: 52px;
+
+            animation:
+                houseAppear 1s ease 0.8s both,
+                gentlePulse 3s ease-in-out 2s infinite;
+        }
+
+        @keyframes houseAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.04);
+            }
+        }
+
+        h1 {
+            color: #315c45;
+            font-size: 54px;
+            font-weight: normal;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            animation: fadeUp 1s ease 0.9s both;
+        }
+
+        .subtitle {
+            color: #806b47;
+            font-size: 20px;
+            font-style: italic;
+            animation: fadeUp 1s ease 1s both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Divider */
+        .ornament {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 28px 0;
+            color: #b39352;
+        }
+
+        .ornament span {
+            font-size: 20px;
+        }
+
+        .ornament::before,
+        .ornament::after {
+            content: "";
+            width: 95px;
+            height: 1px;
+            background: #c6aa6d;
+        }
+
+        /* Message */
+        .message {
+            max-width: 520px;
+            margin: auto;
+            color: #555;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        /* Details */
+        .details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin: 32px auto;
+            max-width: 590px;
+        }
+
+        .detail {
+            padding: 20px 10px;
+            background: #f1f5ef;
+            border: 1px solid #dce5da;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .detail:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(49, 92, 69, 0.12);
+            border-color: #c6aa6d;
+        }
+
+        .icon {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        .label {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #a18143;
+            margin-bottom: 8px;
+        }
+
+        .value {
+            color: #35483b;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Closing */
+        .closing {
+            max-width: 510px;
+            margin: 10px auto;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .dua {
+            margin-top: 22px;
+            color: #315c45;
+            font-size: 15px;
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        /* Button */
+        .button {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 13px 28px;
+            background: #315c45;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(49, 92, 69, 0.2);
+        }
+
+        .button:hover {
+            background: #244635;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(49, 92, 69, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 30px;
+            font-family: Arial, sans-serif;
+            color: #a18143;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            .page {
+                padding: 15px 10px;
+            }
+
+            .card {
+                padding: 48px 20px;
+            }
+
+            .bismillah {
+                font-size: 22px;
+            }
+
+            h1 {
+                font-size: 38px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .message {
+                font-size: 15px;
+            }
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .detail {
+                padding: 16px;
+            }
+
+            .ornament::before,
+            .ornament::after {
+                width: 55px;
+            }
+
+            .corner {
+                font-size: 30px;
+            }
+        }
+
+        /* Print */
+        @media print {
+
+            body {
+                background: white;
+            }
+
+            .leaf,
+            .button {
+                display: none;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 2px solid #c6aa6d;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating decorations -->
+    <div class="leaf leaf1">🌿</div>
+    <div class="leaf leaf2">🍃</div>
+    <div class="leaf leaf3">🌿</div>
+    <div class="leaf leaf4">🍃</div>
+
+    <main class="page">
+
+        <section class="card">
+
+            <!-- Corner decorations -->
+            <div class="corner top-left">❧</div>
+            <div class="corner top-right">❧</div>
+            <div class="corner bottom-left">❧</div>
+            <div class="corner bottom-right">❧</div>
+
+            <!-- Opening -->
+            <div class="bismillah">
+                بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+            </div>
+
+            <div class="intro">
+                With the Blessings of Allah
+            </div>
+
+            <!-- House -->
+            <div class="house">
+                🏡
+            </div>
+
+            <h1>House Warming</h1>
+
+            <div class="subtitle">
+                You are warmly invited
+            </div>
+
+            <div class="ornament">
+                <span>✦</span>
+            </div>
+
+            <!-- Invitation message -->
+            <p class="message">
+                With hearts full of gratitude and happiness,
+                we invite you to celebrate a beautiful new
+                beginning with us as we enter our new home.
+            </p>
+
+            <!-- Event details -->
+            <div class="details">
+
+                <div class="detail">
+                    <div class="icon">📅</div>
+
+                    <div class="label">
+                        Date
+                    </div>
+
+                    <div class="value">
+                        Sunday<br>
+                        25 October 2026
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <div class="icon">🕚</div>
+
+                    <div class="label">
+                        Time
+                    </div>
+
+                    <div class="value">
+                        11:00 AM<br>
+                        Onwards
+                    </div>
+                </div>
+
+                <div class="detail">
+                    <div class="icon">📍</div>
+
+                    <div class="label">
+                        Venue
+                    </div>
+
+                    <div class="value">
+                        A New Beginning<br>
+                        Celebration Venue
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="closing">
+                Your presence, prayers and blessings
+                will make this special occasion even
+                more memorable.
+            </p>
+
+            <p class="dua">
+                May Allah fill this home with peace,
+                happiness, love and endless blessings.
+            </p>
+
+            <!-- Interactive button -->
+            <a href="#" class="button"
+               onclick="showMessage(); return false;">
+                ✨ Celebrate With Us
+            </a>
+
+            <div class="footer">
+                A New Beginning • A New Chapter
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        function showMessage() {
+            alert(
+                "Thank you for being a part of this beautiful new beginning! 🏡✨"
+            );
+        }
+    </script>
+
+</body>
+</html>
+```
